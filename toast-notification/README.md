@@ -1,50 +1,75 @@
-# React + TypeScript + Vite
+# Toast Component
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
+This is a simple Toast notification component built using React and TypeScript. It allows you to display toast messages with different colors and automatically removes them after 5 seconds.
 
-Currently, two official plugins are available:
+## Features
+- Display toast notifications with customizable messages and colors.
+- Automatically removes toast after 5 seconds.
+- Supports manual closing of individual toasts.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation
+Ensure you have React and TypeScript installed in your project.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```sh
+npm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Usage
+Import and use the `ToastContainer` component in your application.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```tsx
+import ToastContainer from "./ToastContainer";
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+function App() {
+  return (
+    <div>
+      <ToastContainer />
+    </div>
+  );
+}
+
+export default App;
 ```
+
+## Component Breakdown
+
+### `ToastProps` Type
+Defines the structure of a toast notification.
+```ts
+type ToastProps = {
+    id: number;
+    message: string;
+    color: string;
+};
+```
+
+### `ToastContainer` Component
+- **State (`toast`)**: Holds an array of active toast messages.
+- **Ref (`timerRef`)**: Stores timeout references for automatic removal.
+- **`handleClose(id: number)`**: Removes a toast manually and clears its timeout.
+- **`handleToast(message: string, color: string)`**: Adds a new toast and sets a timeout for removal.
+
+### Example Usage
+```tsx
+<button onClick={() => handleToast("Success", "green")}>
+  Success Toast
+</button>
+<button onClick={() => handleToast("Danger", "red")}>
+  Danger Toast
+</button>
+```
+
+## Styling
+Ensure you have the necessary CSS styles for `.toast-container`, `.toast`, and `.btn-container` for proper UI rendering.
+
+## Improvements
+- Add animations for toast appearance/disappearance.
+- Support for different toast types (success, error, warning, info).
+- Allow users to set custom durations for each toast.
+
+## License
+This project is open-source and free to use.
+
+---
+Feel free to customize it as per your needs!
